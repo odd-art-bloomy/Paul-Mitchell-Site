@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<meta charset="UTF-8">
+	<title>CandyBanners</title>
+	<meta name="ad.size" content="width=300,height=250"> 
+	<link rel="stylesheet" href="style.css">
+	<script> var clickTag = "https://www.google.com"; </script>
+    <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.2.4_min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div class='bg'>
+			<img class="bg3" src="bg3.jpg" alt="Background">
+			<img class="bg2" src="bg2.jpg" alt="Background">
+			<img class="bg1" src="bg1.jpg" alt="Background">
+		</div>
+        <div class='redX'>
+            <img src="redX.png" alt="">
+        </div>
+		<div class='bg'>
+			<img class="bg4" src="bg4.jpg" alt="Background">
+        </div>
+
+        <div class='sprite t1-2 t1'></div>
+        <div class='sprite t1-1 t1'></div>
+        <div class='sprite t2-2 t2'></div>
+        <div class='sprite t2-1 t2'></div>
+
+        <div class='cta'>
+            <div class='sprite cta-arrow'></div>
+            <div class='sprite cta-text1'></div>
+        </div>
+        <svg class="logo1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="198px"
+            height="68px" viewBox="0 0 396 136" enable-background="new 0 0 396 136" xml:space="preserve">
+            <defs>
+                <mask id="logomask">
+                    <image overflow="visible" width="396" height="136"  xlink:href="logo1-mask.png" ></image>
+                </mask>
+            </defs>
+            <g mask="url(#logomask)">
+                <image overflow="visible" width="396" height="136" xlink:href="logo1.png" ></image>
+                <image class="shine" overflow="visible" width="216" height="279" xlink:href="shine.png" ></image>
+            </g>
+        </svg>
+        <div class="logo2">
+            <img src="logo2.png" alt="">
+        </div>
+        <div id='clickthru'></div>
+        
+	</div>
+	<script>
+    //--------------preload-img-------------------
+    function preload(arr,f) { $('<div id="preload" />').appendTo('body'); $(arr).each(function () {$('<img />').attr('src',this).appendTo('#preload').hide(); }); window.onload =function(){ f(); $('#preload').remove()} }
+    //--------------vars-------------------
+	var tl = gsap.timeline({paused:true,  defaults: {duration: 0.8,ease: "power1.out" }});
+    //---------------------------------
+    preload([
+        "sprite.png",
+        "bg1.jpg",
+        "bg2.jpg",
+        "bg3.jpg",
+        "bg4.jpg",
+        "logo1.png",
+        "logo2.png",
+        "logo1-mask.png"
+    ],startAnim);
+    //--------------animations---------------------
+    function startAnim() {
+		//------on load ------------
+		gsap.set('#container', {display: 'block',onComplete:()=>{
+			//------------ ADD EVENT --------------
+			addEvent();
+			tl.play();
+		}});
+		//--------------- SET -----------------
+		//---------- ADD ANIMATION ------------
+        tl
+            //=========================
+            .add('Scene1')
+            .to('.bg1',{scale:1.1,duration:6,ease:'linear'},'Scene1')
+            .from('.t1',{stagger:-.2,y:7,opacity:0},'Scene1+=0.5')
+            //=========================
+            .add('Scene2','Scene1+=3')
+            .to('.bg1,.t1',{opacity:0,duration:0.6},'Scene2')
+            .to('.bg2',{scale:1.1,duration:6,ease:'linear'},'Scene2')
+            .from('.t2',{stagger:-.2,y:7,opacity:0},'Scene2+=0.7')
+            //=========================
+            .add('Scene3','Scene2+=3.5')
+            .to('.bg2,.t2',{opacity:0,duration:0.6},'Scene3')
+            .to('.bg3',{scale:1.1,duration:6,ease:'linear'},'Scene3')
+            .from('.redX',{opacity:0,duration:1},'Scene3+=1.5')
+            .to('.redX',{scale:10,x:-100,duration:1},'Scene3+=2')
+            //=========================
+            .add('Scene4','Scene3+=2.7')
+            .to('.bg3',{opacity:0,duration:0.6},'Scene4')
+            .from('.bg4',{opacity:0,duration:0.6},'Scene4')
+            .from('.logo1',{opacity:0},'Scene4+=0.2')
+            .fromTo('.shine',{x:-150,y:-50,opacity:0.7},{x:320,ease:"power1.inOut"},'Scene4+=0.6')
+            .from('.cta',{opacity:0},'Scene4+=1')
+            //=========================
+            .add('Scene5','Scene4+=3')
+            .to('.logo1,.t3',{opacity:0},'Scene5')
+            .from('.logo2',{opacity:0},'Scene5+=0.7')
+            .fromTo('.cta-arrow',{x:0},{duration:0.4,x:3,yoyo:true,repeat:3,ease:'power1.inOut'},'Scene5+=2')
+
+            .add(hoverFunction)
+        //-------------------------------------
+    };
+
+    function addEvent() {
+        $('#clickthru').on('click', exit);
+    };
+
+    function exit() {
+        //-----------exit guide--------------------------
+        //--adword--> ExitApi.exit();
+        //--adgear--> ADGEAR.html5.clickThrough("clickTAG");
+        //--studio--> Enabler.exit('Background Exit'); 
+        //--standard/sizemek/adword no-api--> window.open(clickTag);
+        //-----------exit--------------------------------
+        window.open(clickTag); /*Studio/Enabler Exit*/
+    }
+    
+    function hoverFunction() {
+        $('#clickthru').on('mouseenter', function() {
+            gsap.fromTo('.cta-arrow',{x:0},{duration:0.4,x:3,yoyo:true,repeat:3,ease:'power1.inOut'})
+        });
+        $('#clickthru').on('mouseleave', function() {
+            gsap.to('.cta-arrow',{x:0,duration:0.4,overwrite:'auto',ease:'power1.out'})
+        });
+    }
+//-------------------------------------
+
+</script>
+</body>
+</html>
+
+<!--2022-->

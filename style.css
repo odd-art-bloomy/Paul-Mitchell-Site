@@ -1,0 +1,76 @@
+body {margin: 0px;}
+#container {
+	background-color: black;
+	border: 1px solid gray;
+	box-shadow: inset 0 0 0 1px gray;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: none;
+	overflow: hidden;
+	position: absolute;
+	width: 300px;
+	height: 250px;
+	pointer-events: none;
+}
+
+#container * {
+	position: absolute;
+}
+
+#clickthru{
+	width: 100%;
+	height: 100%;
+	pointer-events: auto;
+}
+
+/*-------------- SPRITE -------------*/
+.sprite { background: url('sprite.png') no-repeat top left; width: 178px; height: 303px; background-size: 178px 303px;  } 
+.sprite.cta-arrow { background-position: 0 0; width: 8px; height: 9px; } 
+.sprite.t1-1 { background-position: 0 -14px; width: 178px; height: 64px; } 
+.sprite.cta-text1 { background-position: 0 -83px; width: 102px; height: 11px; } 
+.sprite.t1-2 { background-position: 0 -99px; width: 150px; height: 64px; } 
+.sprite.t2-1 { background-position: 0 -168px; width: 141px; height: 65px; } 
+.sprite.t2-2 { background-position: 0 -238px; width: 123px; height: 65px; } 
+
+/*--------- SPRITE POSITION ---------*/
+.cta-text1,.cta-text2 {top: 6px;left: 7px;}
+.cta-text2 {opacity:0; }
+.cta-arrow {top: 7px;left: 112px;}
+.logo1 {top: 83px;left: 52px;}
+.logo2 {top: 82px;left: 52px;}
+.t1-1 {top: 160px;left: -2px;}
+.t1-2 {top: 184px;left: -2px;}
+
+.t2-1 {top: 159px;left: -3px;}
+.t2-2 {top: 183px;left: -3px;}
+
+.redX{
+	width: 112px;
+	height: 150px;
+	top: 101px;
+	left: 200px;
+}
+.logo2{
+	width: 192px;
+	height: 85px;
+}
+/*-------- IMAGES | POSITION --------*/
+img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+.bg{
+	width: 300px;
+	height: 250px;
+}
+
+.cta{
+    width: 124px;
+    height: 23px;
+    left: 85px;
+    top: 191px;
+}
+
+
